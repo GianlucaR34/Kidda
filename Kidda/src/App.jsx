@@ -5,6 +5,7 @@ import Footer from './Components/Footer'; // Importamos el componente Footer
 import MainPage from './Pages/MainPage'; // Importamos la página principal
 import Revistas from './Pages/Revistas'; // Importamos la página de revistas
 import Panel from './Pages/Panel'; // Importamos la página del panel
+import RevistaIndividual from './Pages/RevistaIndividual';
 
 const App = () => {
   return (
@@ -13,8 +14,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />  
         <Route path="/revistas" element={<Revistas />} /> 
-        <Route path="/panel" element={<Panel />} /> 
-        <Route path="/revista-individual" element={<Panel />} /> 
+        <Route path="/revista-individual" element={<RevistaIndividual />} /> 
         <Route path="/admin" element={<Panel />} /> 
       </Routes>
       <Footer />
