@@ -1,0 +1,15 @@
+/* FOOTER */
+footer {
+    background-color: #a94900;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 1rem 0;
+    position: relative; /* Asegura que no se superponga con el contenido */
+    width: 100%;
+    font-family: "Caveat Brush", sans-serif;
+    font-size: 1.5rem;
+    margin-top: auto; /* Coloca el footer al final de la página */
+  }
+  
+  
+  /* FOOTER */

@@ -1,0 +1,59 @@
+/* NAVBAR */
+.Nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ff7f1d;
+    color: white;
+    padding: 1.5rem;
+  }
+  
+  .navbar-logo img {
+    height: 60px;
+  
+  }
+  
+  .Nav ul {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .Nav li {
+    font-size: 20px;
+    font-family: "Caveat Brush", sans-serif;
+  }
+  
+  .Nav a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+    z-index: 1;
+  }
+  
+  .Nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 140%; 
+    height: 140%; 
+    background-color: transparent;
+    left: -20%; 
+    top: -20%; 
+    transition: all 0.3s ease;
+    z-index: -1; 
+  }
+  
+  .Nav ul li a:hover::after {
+    background-color: #000000; 
+    opacity: 1;
+  }
+  
+  .Nav ul li a:hover {
+    color: #ff7f1d; 
+  }
+  
+  
+  /* NAVBAR */

@@ -1,35 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'; // Asegúrate de importar BrowserRouter, Route y Routes
+import Nav from './Components/Nav'; // Importamos el componente Nav
+import Footer from './Components/Footer'; // Importamos el componente Footer
+import MainPage from './Pages/MainPage'; // Importamos la página principal
+import Revistas from './Pages/Revistas'; // Importamos la página de revistas
+import Panel from './Pages/Panel'; // Importamos la página del panel
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <BrowserRouter>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<MainPage />} />  
+        <Route path="/revistas" element={<Revistas />} /> 
+        <Route path="/panel" element={<Panel />} /> 
+        <Route path="/revista-individual" element={<Panel />} /> 
+        <Route path="/admin" element={<Panel />} /> 
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;
