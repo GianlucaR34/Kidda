@@ -64,28 +64,58 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 });
 
 // Ruta para eliminar un archivo de revistas
-app.delete('/magazines/:filename', (req, res) => {
+app.delete('/magazines/:filename', async (req, res) => {
   const { filename } = req.params;
   const filePath = `uploads/${filename}`;
 
-  fs.unlink(filePath, (err) => {
-    if (err) {
+  try {
+    // Verificar si el archivo existe
+    if (!fs.existsSync(filePath)) {
       return res.status(404).send('Archivo no encontrado');
     }
-    res.status(200).send({
-      message: 'Archivo eliminado exitosamente',
+
+    // Eliminar la entrada en la base de datos
+    const magazine = await Magazine.findOne({ filename });
+
+    if (!magazine) {
+      return res.status(404).send('Revista no encontrada en la base de datos');
+    }
+
+    // Eliminar la revista de la base de datos
+    await Magazine.deleteOne({ filename });
+
+    // Eliminar el archivo físico
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        return res.status(500).send('Error al eliminar el archivo');
+      }
+
+      // Responder con éxito
+      res.status(200).send({ message: 'Revista y archivo eliminados exitosamente' });
     });
-  });
+  } catch (error) {
+    console.error('Error al eliminar la revista:', error);
+    res.status(500).send('Error al eliminar la revista');
+  }
 });
 
 // Ruta para listar todas las revistas disponibles
-app.get('/magazines', (req, res) => {
-  fs.readdir('uploads', (err, files) => {
-    if (err) {
-      return res.status(500).send('Error al leer la carpeta de archivos');
+app.get('/magazines', async (req, res) => {
+  try {
+    // Obtener todas las revistas desde la base de datos
+    const magazines = await Magazine.find();
+    
+    // Si no hay revistas, responder con un mensaje
+    if (magazines.length === 0) {
+      return res.status(404).send('No hay revistas disponibles');
     }
-    res.status(200).json({ files }); // Retorna la lista de archivos en la carpeta uploads
-  });
+
+    // Devolver las revistas completas
+    res.status(200).json(magazines);
+  } catch (err) {
+    console.error('Error al obtener las revistas:', err);
+    res.status(500).send('Error al obtener las revistas');
+  }
 });
 
 // Rutas de autenticación (login)

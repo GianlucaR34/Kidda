@@ -11,7 +11,7 @@ const AdminPanel = () => {
     const fetchMagazines = async () => {
       const response = await fetch('http://localhost:5000/magazines');
       const data = await response.json();
-      setMagazines(data.files); // Asumiendo que el servidor responde con { files: [...] }
+      setMagazines(data); // Asumiendo que el servidor responde con un array de revistas
     };
 
     fetchMagazines();
@@ -36,19 +36,34 @@ const AdminPanel = () => {
 
     const data = await response.json();
     console.log(data.message); // Muestra "Revista subida exitosamente"
-    setMagazines([...magazines, data.filename]); // Añadir el nombre real del archivo subido
+    setMagazines([...magazines, data]); // Añadir los detalles de la nueva revista
   };
 
-  // Eliminar una revista
   const deleteMagazine = async (filename) => {
-    const response = await fetch(`http://localhost:5000/magazines/${filename}`, {
-      method: 'DELETE',
-    });
-
-    const data = await response.json();
-    console.log(data.message); // Muestra "Archivo eliminado exitosamente"
-    setMagazines(magazines.filter((magazine) => magazine !== filename)); // Elimina la revista de la lista
+    try {
+      console.log('Eliminando archivo:', filename); // Verifica el filename
+  
+      const response = await fetch(`http://localhost:5000/magazines/${filename}`, {
+        method: 'DELETE',
+      });
+  
+      if (!response.ok) {
+        throw new Error('Revista no encontrada');
+      }
+  
+      const data = await response.json();
+      console.log(data.message); // Muestra "Archivo eliminado exitosamente"
+  
+      // Filtra las revistas eliminadas de la lista en el frontend
+      setMagazines((prevMagazines) =>
+        prevMagazines.filter((magazine) => magazine.filename !== filename)
+      );
+    } catch (error) {
+      console.error('Error al eliminar la revista:', error.message); // Manejo del error
+      alert('No se pudo eliminar la revista: ' + error.message);
+    }
   };
+  
 
   return (
     <div>
@@ -79,8 +94,10 @@ const AdminPanel = () => {
         <ul>
           {magazines.map((magazine, index) => (
             <li key={index}>
-              {magazine}
-              <button onClick={() => deleteMagazine(magazine)}>Eliminar</button>
+              <p>Título: {magazine.title}</p>
+              <p>Contraseña: {magazine.password}</p>
+              <p>Fecha de subida: {new Date(magazine.uploadDate).toLocaleDateString()}</p>
+              <button onClick={() => deleteMagazine(magazine.filename)}>Eliminar</button> {/* Se pasa el filename */}
             </li>
           ))}
         </ul>
