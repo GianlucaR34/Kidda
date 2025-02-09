@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 const AdminPanel = () => {
   const [file, setFile] = useState(null);
+  const [title, setTitle] = useState('');
+  const [password, setPassword] = useState('');
   const [magazines, setMagazines] = useState([]);
 
   // Cargar las revistas al inicio
@@ -24,6 +26,8 @@ const AdminPanel = () => {
   const handleFileUpload = async () => {
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('title', title);  // Añadir el título
+    formData.append('password', password);  // Añadir la contraseña
 
     const response = await fetch('http://localhost:5000/upload', {
       method: 'POST',
@@ -31,7 +35,7 @@ const AdminPanel = () => {
     });
 
     const data = await response.json();
-    console.log(data.message); // Muestra "Archivo subido exitosamente"
+    console.log(data.message); // Muestra "Revista subida exitosamente"
     setMagazines([...magazines, data.filename]); // Añadir el nombre real del archivo subido
   };
 
@@ -53,6 +57,18 @@ const AdminPanel = () => {
       {/* Subir nueva revista */}
       <div>
         <h3>Subir Nueva Revista</h3>
+        <input 
+          type="text" 
+          placeholder="Título de la revista" 
+          value={title} 
+          onChange={(e) => setTitle(e.target.value)} 
+        />
+        <input 
+          type="password" 
+          placeholder="Contraseña para acceder" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+        />
         <input type="file" onChange={handleFileChange} />
         <button onClick={handleFileUpload}>Subir Revista</button>
       </div>
