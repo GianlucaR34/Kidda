@@ -15,11 +15,9 @@ const MagazineViewer = ({ pdfUrl }) => {
   };
 
   const getDimensions = (pageIndex, numPages) => {
-    // Portada y contraportada con A4
     if (pageIndex === 0 || pageIndex === numPages - 1) {
       return { width: 595, height: 842 }; // A4
     }
-    // Páginas intermedias con A3 apaisado
     return { width: 1190, height: 842 }; // A3 apaisado
   };
 
@@ -31,11 +29,9 @@ const MagazineViewer = ({ pdfUrl }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#222", // Fondo gris oscuro
-        color: "#fff", // Texto blanco si necesitas agregarlo
+      backgroundColor: "#222",
         padding: "20px",
-        height: "100vh", // Asegura que ocupe toda la pantalla
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Sombra externa
       }}
     >
       <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
@@ -60,22 +56,19 @@ const MagazineViewer = ({ pdfUrl }) => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  backgroundColor: "#fff", // Fondo blanco para las páginas
+                  backgroundColor: "#fff",
                   overflow: "hidden",
-                  margin: "0 auto",
+                  margin: "0 auto", // Centrar el contenedor si es portada/contraportada
                   position: "relative",
-                  // Asegura que las páginas de la portada y contraportada se centren
-                  paddingLeft: singlePage ? "50%" : "0", // Centra solo la portada/contraportada
-                  transform: singlePage ? "translateX(-50%)" : "none", // Centrado para A4
                 }}
               >
                 <Page
                   pageNumber={index + 1}
                   width={width}
                   style={{
-                    position: "absolute",
-                    left: "0",
-                    top: "0",
+                    position: "absolute", // Asegura que el contenido esté alineado
+                    left: singlePage ? "50%" : "0", // Centrar si es portada/contraportada
+                    transform: singlePage ? "translateX(-50%)" : "none",
                   }}
                 />
               </div>
