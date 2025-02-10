@@ -1,48 +1,52 @@
 .revistas-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .revistas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .revista-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.2s ease;
-  }
-  
-  .revista-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .revista-thumbnail {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-  }
-  
-  .revista-info {
-    padding: 10px;
-  }
-  
-  .revista-info h3 {
-    font-size: 18px;
-    margin: 0;
-    color: #333;
-  }
-  
-  .revista-info p {
-    font-size: 14px;
-    color: #666;
-    margin-top: 5px;
-  }
+  padding-top: 1rem;
+  max-width: 1500px;
+  margin: 0 auto; /* Centrado del contenedor */
+  text-align: center;
+}
+
+.revistas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* auto-fill puede ayudar a llenar el espacio */
+  gap: 60px;
+  margin-top: 8rem;
+  margin-bottom: 11rem;
+}
+
+.revista-card {
+  background: #000000;
+  /*border: 1px solid #000000; crea un borde como sketch*/
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  height: 20rem;
+  width: 100%; /* Asegúrate de que el card ocupe el espacio completo de la celda */
+}
+
+.revista-card:hover {
+  transform: scale(1.05);
+}
+
+.revista-thumbnail {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.revista-info {
+  padding: 10px;
+}
+
+.revista-info h3 {
+  font-size: 18px;
+  margin: 0;
+  color: #ff6a00;
+  font-family: "Caveat Brush", sans-serif;
+}
+
+.revista-info p {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
