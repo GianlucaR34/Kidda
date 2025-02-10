@@ -20,7 +20,8 @@
     "react-dom": "^18.3.1",
     "react-pageflip": "^2.0.3",
     "react-pdf": "^9.2.1",
-    "react-router-dom": "^7.1.5"
+    "react-router-dom": "^7.1.5",
+    "url": "^0.11.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

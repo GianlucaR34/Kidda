@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const AdminPanel = () => {
   const [file, setFile] = useState(null);
+  const [cover, setCover] = useState(null); // Nuevo estado para la portada
   const [title, setTitle] = useState('');
   const [password, setPassword] = useState('');
   const [magazines, setMagazines] = useState([]);
@@ -17,15 +18,21 @@ const AdminPanel = () => {
     fetchMagazines();
   }, []);
 
-  // Manejar el cambio del archivo que se va a subir
+  // Manejar el cambio del archivo PDF que se va a subir
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  // Subir el archivo al backend
+  // Manejar el cambio de la portada
+  const handleCoverChange = (event) => {
+    setCover(event.target.files[0]);
+  };
+
+  // Subir el archivo y la portada al backend
   const handleFileUpload = async () => {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', file);  // Archivo PDF
+    formData.append('cover', cover);  // Portada
     formData.append('title', title);  // Añadir el título
     formData.append('password', password);  // Añadir la contraseña
 
@@ -36,7 +43,7 @@ const AdminPanel = () => {
 
     const data = await response.json();
     console.log(data.message); // Muestra "Revista subida exitosamente"
-    setMagazines([...magazines, data]); // Añadir los detalles de la nueva revista
+    setMagazines([...magazines, data.magazine]); // Añadir los detalles de la nueva revista
   };
 
   const deleteMagazine = async (filename) => {
@@ -63,7 +70,6 @@ const AdminPanel = () => {
       alert('No se pudo eliminar la revista: ' + error.message);
     }
   };
-  
 
   return (
     <div>
@@ -85,6 +91,7 @@ const AdminPanel = () => {
           onChange={(e) => setPassword(e.target.value)} 
         />
         <input type="file" onChange={handleFileChange} />
+        <input type="file" onChange={handleCoverChange} /> {/* Campo para seleccionar la portada */}
         <button onClick={handleFileUpload}>Subir Revista</button>
       </div>
 

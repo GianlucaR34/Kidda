@@ -6,12 +6,21 @@ import mongoose from 'mongoose';
 import User from './models/User.js';
 import jwt from 'jsonwebtoken';
 import Magazine from './models/Magazine.js';
+import path from 'path';  // Importamos path
+import { fileURLToPath } from 'url'; // Importamos fileURLToPath
 
 const app = express();
 const port = 5000;
 
+// Solucionamos el problema de __dirname en módulos ES
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use(cors());
 app.use(express.json());
+
+// Middleware para servir archivos estáticos desde la carpeta 'uploads'
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Configurar Multer para manejar la subida de archivos
 const storage = multer.diskStorage({
@@ -40,59 +49,68 @@ app.get('/', (req, res) => {
 });
 
 // Rutas para subir archivos y manejar revistas
-app.post('/upload', upload.single('file'), async (req, res) => {
-  const file = req.file;
+app.post('/upload', upload.fields([{ name: 'file' }, { name: 'cover' }]), async (req, res) => {
+  const files = req.files;
   const { title, password } = req.body;
-  
-  if (!file) {
-    return res.status(400).send('No se subió ningún archivo');
+
+  console.log('Archivos recibidos:', files);  // Verifica si "cover" y "file" están presentes
+
+  if (!files || !files.file || !files.cover) {
+    return res.status(400).send('Se requieren tanto el archivo PDF como la portada.');
   }
 
-  // Crear una nueva revista en la base de datos
-  const magazine = new Magazine({
-    title,
-    filename: file.filename,
-    password,
-  });
+  try {
+    // Crear una nueva revista en la base de datos
+    const magazine = new Magazine({
+      title,
+      filename: files.file[0].filename, // PDF subido
+      cover: files.cover[0].filename,   // Portada subida
+      password,
+    });
 
-  await magazine.save();
-  
-  res.status(200).send({
-    message: 'Revista subida exitosamente',
-    magazine,
-  });
+    await magazine.save();
+
+    res.status(200).send({
+      message: 'Revista subida exitosamente',
+      magazine,
+    });
+  } catch (error) {
+    console.error('Error al guardar la revista:', error);
+    res.status(500).send('Error al guardar la revista');
+  }
 });
 
 // Ruta para eliminar un archivo de revistas
 app.delete('/magazines/:filename', async (req, res) => {
   const { filename } = req.params;
-  const filePath = `uploads/${filename}`;
+  const pdfPath = `uploads/${filename}`;
 
   try {
-    // Verificar si el archivo existe
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).send('Archivo no encontrado');
-    }
-
-    // Eliminar la entrada en la base de datos
+    // Buscar la revista en la base de datos
     const magazine = await Magazine.findOne({ filename });
 
     if (!magazine) {
       return res.status(404).send('Revista no encontrada en la base de datos');
     }
 
-    // Eliminar la revista de la base de datos
+    // Eliminar la entrada de la base de datos
     await Magazine.deleteOne({ filename });
 
-    // Eliminar el archivo físico
-    fs.unlink(filePath, (err) => {
-      if (err) {
-        return res.status(500).send('Error al eliminar el archivo');
-      }
+    // Eliminar el archivo PDF
+    if (fs.existsSync(pdfPath)) {
+      fs.unlinkSync(pdfPath);
+    }
 
-      // Responder con éxito
-      res.status(200).send({ message: 'Revista y archivo eliminados exitosamente' });
-    });
+    // Eliminar la portada asociada
+    if (magazine.cover) {
+      const coverPath = `uploads/${magazine.cover}`;
+      if (fs.existsSync(coverPath)) {
+        fs.unlinkSync(coverPath);
+      }
+    }
+
+    // Responder con éxito
+    res.status(200).send({ message: 'Revista, portada y archivo PDF eliminados exitosamente' });
   } catch (error) {
     console.error('Error al eliminar la revista:', error);
     res.status(500).send('Error al eliminar la revista');
@@ -102,18 +120,11 @@ app.delete('/magazines/:filename', async (req, res) => {
 // Ruta para listar todas las revistas disponibles
 app.get('/magazines', async (req, res) => {
   try {
-    // Obtener todas las revistas desde la base de datos
-    const magazines = await Magazine.find();
-    
-    // Si no hay revistas, responder con un mensaje
-    if (magazines.length === 0) {
-      return res.status(404).send('No hay revistas disponibles');
-    }
-
-    // Devolver las revistas completas
-    res.status(200).json(magazines);
-  } catch (err) {
-    console.error('Error al obtener las revistas:', err);
+    const magazines = await Magazine.find(); // Recupera todas las revistas
+    console.log('Revistas enviadas al frontend:', magazines); // DEBUG: Ve qué datos se están enviando
+    res.status(200).json(magazines); // Envía las revistas al frontend
+  } catch (error) {
+    console.error('Error al obtener las revistas:', error);
     res.status(500).send('Error al obtener las revistas');
   }
 });
