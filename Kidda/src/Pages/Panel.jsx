@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/Panel.css';
 
 const AdminPanel = () => {
   const [file, setFile] = useState(null);
@@ -72,11 +73,11 @@ const AdminPanel = () => {
   };
 
   return (
-    <div>
-      <h2>Panel de Administración</h2>
+    <div className="admin-container">
+      <h2>PANEL DE ADMINISTRACION</h2>
 
       {/* Subir nueva revista */}
-      <div>
+      <div className="upload-section">
         <h3>Subir Nueva Revista</h3>
         <input 
           type="text" 
@@ -90,13 +91,32 @@ const AdminPanel = () => {
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
         />
-        <input type="file" onChange={handleFileChange} />
-        <input type="file" onChange={handleCoverChange} /> {/* Campo para seleccionar la portada */}
-        <button onClick={handleFileUpload}>Subir Revista</button>
+
+        {/* Input para subir la revista */}
+        <div className="file-input-container">
+          <label htmlFor="fileInput">Seleccionar revista</label>
+          <input 
+            type="file" 
+            id="fileInput"
+            onChange={handleFileChange} 
+          />
+        </div>
+
+        {/* Input para subir la portada */}
+        <div className="file-input-container">
+          <label htmlFor="coverInput">Seleccionar portada</label>
+          <input 
+            type="file" 
+            id="coverInput"
+            onChange={handleCoverChange} 
+          />
+        </div>
+
+        <button className="upload-button" onClick={handleFileUpload}>Subir Revista</button>
       </div>
 
       {/* Lista de revistas */}
-      <div>
+      <div className="magazines-list">
         <h3>Revistas Disponibles</h3>
         <ul>
           {magazines.map((magazine, index) => (
@@ -104,7 +124,7 @@ const AdminPanel = () => {
               <p>Título: {magazine.title}</p>
               <p>Contraseña: {magazine.password}</p>
               <p>Fecha de subida: {new Date(magazine.uploadDate).toLocaleDateString()}</p>
-              <button onClick={() => deleteMagazine(magazine.filename)}>Eliminar</button> {/* Se pasa el filename */}
+              <button className="delete-button" onClick={() => deleteMagazine(magazine.filename)}>Eliminar</button>
             </li>
           ))}
         </ul>

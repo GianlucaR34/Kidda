@@ -1,0 +1,128 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a; /* Fondo oscuro */
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.admin-container {
+    width: 80%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: linear-gradient(to bottom, #282525, #6e6c6b);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Títulos */
+h2, h3 {
+    color: #ff6a00;
+    text-align: center;
+}
+
+/* Formulario para subir nueva revista */
+.upload-section {
+    margin-bottom: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en columna */
+    align-items: center; /* Alinea los elementos al centro */
+    padding: 2rem;
+}
+
+.upload-section input {
+    margin: 20px 0;
+    padding: 10px;
+    width: 100%; /* Asegura que los inputs ocupen el 100% del contenedor */
+    max-width: 400px; /* Limita el ancho máximo a 400px para evitar desbordes */
+    border: 2px solid #161313;
+    border-radius: 5px;
+    background-color: #161313;
+    color: rgb(255, 255, 255);
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el width */
+}
+
+/* Agregar estilo a los contenedores de los inputs de archivo */
+.file-input-container {
+  margin: 10px 0;
+  text-align: left; /* Alinea el texto del label a la izquierda */
+  width: 100%;
+  max-width: 400px; /* Limita el ancho máximo a 400px */
+}
+
+.file-input-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #dddddd; /* Puedes cambiar el color para hacerlo destacar */
+}
+
+.file-input-container input[type="file"] {
+  margin-top: 5px;
+  padding: 8px;
+  width: 100%;
+  border: 2px solid #161313;
+  border-radius: 5px;
+  background-color: #161313;
+  color: rgb(89, 84, 84);
+  box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el width */
+}
+
+/* Botón de subir */
+.upload-section button {
+    background-color: #28a745; /* Verde */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 10%; /* Asegura que el botón tenga el mismo ancho que los inputs */
+    margin-top: 15px; /* Espacio superior entre el botón y los inputs */
+}
+
+.upload-section button:hover {
+    background-color: #218838;
+}
+
+/* Lista de revistas */
+.magazines-list {
+    margin-top: 2rem;
+}
+
+.magazines-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.magazines-list li {
+    background-color: #444;
+    margin: 10px 0;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.magazines-list p {
+    margin: 5px 0;
+}
+
+/* Botón de eliminar */
+.delete-button {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
