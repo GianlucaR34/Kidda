@@ -18,9 +18,6 @@ function Nav() {
           <Link to="/revistas">REVISTAS</Link>
         </li>
         <li>
-          <Link to="/revista-individual">REVISTA INDIVIDUAL</Link>
-        </li>
-        <li>
           <Link to="/admin">PANEL</Link>
         </li>
       </ul>
