@@ -1,10 +1,10 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'; // Asegúrate de importar BrowserRouter, Route y Routes
-import Nav from './Components/Nav'; // Importamos el componente Nav
-import Footer from './Components/Footer'; // Importamos el componente Footer
-import MainPage from './Pages/MainPage'; // Importamos la página principal
-import Revistas from './Pages/Revistas'; // Importamos la página de revistas
-import Panel from './Pages/Panel'; // Importamos la página del panel
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Nav from './Components/Nav';
+import Footer from './Components/Footer';
+import MainPage from './Pages/MainPage';
+import Revistas from './Pages/Revistas';
+import Panel from './Pages/Panel';
 import RevistaIndividual from './Pages/RevistaIndividual';
 
 const App = () => {
@@ -12,9 +12,9 @@ const App = () => {
     <BrowserRouter>
       <Nav />
       <Routes>
-        <Route path="/" element={<MainPage />} />  
-        <Route path="/revistas" element={<Revistas />} /> 
-        <Route path="/revista-individual" element={<RevistaIndividual />} /> 
+        <Route path="/" element={<MainPage />} />
+        <Route path="/revistas" element={<Revistas />} />
+        <Route path="/revista-individual/:id" element={<RevistaIndividual />} /> {/* Ruta dinámica */}
         <Route path="/admin" element={<Panel />} /> 
       </Routes>
       <Footer />

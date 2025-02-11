@@ -129,6 +129,22 @@ app.get('/magazines', async (req, res) => {
   }
 });
 
+// Ruta para obtener una revista por su ID
+app.get('/magazines/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const magazine = await Magazine.findById(id); // Busca la revista por ID
+    if (!magazine) {
+      return res.status(404).send('Revista no encontrada');
+    }
+    res.status(200).json(magazine); // Devuelve la revista encontrada
+  } catch (error) {
+    console.error('Error al obtener la revista:', error);
+    res.status(500).send('Error al obtener la revista');
+  }
+});
+
 // Rutas de autenticación (login)
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
