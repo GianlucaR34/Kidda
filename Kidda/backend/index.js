@@ -1,13 +1,16 @@
 import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
-import fs from 'fs'; // Asegúrate de importar fs
+import fs from 'fs';
 import mongoose from 'mongoose';
-import User from './models/User.js';
-import jwt from 'jsonwebtoken';
 import Magazine from './models/Magazine.js';
-import path from 'path';  // Importamos path
-import { fileURLToPath } from 'url'; // Importamos fileURLToPath
+import path from 'path';
+import { fileURLToPath } from 'url';
+import authRouter from './models/auth.js'; // Importamos el router de autenticación
+import User from './models/User.js';  // Asegúrate de que la ruta sea correcta
+
+
+
 
 const app = express();
 const port = 5000;
@@ -145,18 +148,8 @@ app.get('/magazines/:id', async (req, res) => {
   }
 });
 
-// Rutas de autenticación (login)
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
-  
-  if (!user || !(await user.comparePassword(password))) {
-    return res.status(401).send('Usuario o contraseña incorrectos');
-  }
-  
-  const token = jwt.sign({ userId: user._id, role: user.role }, 'secreto', { expiresIn: '1h' });
-  res.json({ token });
-});
+// Usar el router de autenticación
+app.use('/auth', authRouter);  // Usa el router de auth aquí
 
 // Iniciar el servidor
 app.listen(port, () => {

@@ -1,11 +1,75 @@
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/nav.css';
+import LoginModal from './LoginModal';
+import { jwtDecode } from 'jwt-decode';
 
 function Nav() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem('token')); // Obtener token de localStorage
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  useEffect(() => {
+    console.log('Token from localStorage:', token);
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log('Decoded Token:', decoded);
+
+        // Verificar si el token ha expirado
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (decoded.exp < currentTime) {
+          console.log("El token ha expirado, cerrando sesión...");
+          handleLogout();
+          return;
+        }
+
+        if (decoded.role === 'admin') {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error("Error al decodificar el token:", error);
+        handleLogout();
+      }
+    } else {
+      console.log('No token found in localStorage');
+      setIsLoggedIn(false);
+    }
+  }, [token]);
+
+  // Detectar cambios en localStorage (por si se cambia en otra pestaña)
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setToken(localStorage.getItem('token'));
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  const handleLoginClick = () => {
+    setShowLoginModal(true);
+  };
+
+  const closeLoginModal = () => {
+    setShowLoginModal(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+    setIsLoggedIn(false);
+    setShowLoginModal(false); // ✅ Asegurar que el modal se cierra al hacer logout
+    console.log("Sesión cerrada correctamente");
+  };
+
   return (
     <nav className="Nav">
       <div className="navbar-logo">
-        {/* Cambiamos a una ruta relativa para la imagen en public */}
         <a href="/">
           <img src="/KiddaLogo.png" alt="Kidda Logo" />
         </a>
@@ -17,10 +81,29 @@ function Nav() {
         <li>
           <Link to="/revistas">REVISTAS</Link>
         </li>
-        <li>
-          <Link to="/admin">PANEL</Link>
-        </li>
+        {isLoggedIn && (
+          <li>
+            <Link to="/admin">PANEL</Link>
+          </li>
+        )}
+        {!isLoggedIn ? (
+          <li>
+            <button onClick={handleLoginClick}>LOGIN</button>
+          </li>
+        ) : (
+          <li>
+            <button onClick={handleLogout}>LOGOUT</button>
+          </li>
+        )}
       </ul>
+
+      {showLoginModal && (
+        <LoginModal 
+          setIsLoggedIn={setIsLoggedIn} 
+          setToken={setToken} 
+          closeLoginModal={closeLoginModal} 
+        />
+      )}
     </nav>
   );
 }
