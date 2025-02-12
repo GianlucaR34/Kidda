@@ -5,21 +5,24 @@ body {
     color: white;
     margin: 0;
     padding: 0;
+    
+    
 }
 
 /* Contenedor principal */
 .admin-container {
-    width: 80%;
+    width: 50%;
     margin: 2rem auto;
     padding: 2rem;
-    background: linear-gradient(to bottom, #282525, #6e6c6b);
+    background-image: linear-gradient(to bottom, #282524, #7b4535);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    
 }
 
 /* Títulos */
 h2, h3 {
-    color: #ff6a00;
+    color: #e55d35;
     text-align: center;
 }
 
@@ -73,7 +76,7 @@ h2, h3 {
 
 /* Botón de subir */
 .upload-section button {
-    background-color: #28a745; /* Verde */
+    background-color: #54a119; /* Verde */
     color: white;
     padding: 10px 20px;
     border: none;
@@ -100,7 +103,7 @@ h2, h3 {
 }
 
 .magazines-list li {
-    background-color: #444;
+    background-image: linear-gradient(to bottom, #9e9397, #adaa97);
     margin: 10px 0;
     padding: 1rem;
     border-radius: 10px;
@@ -109,11 +112,13 @@ h2, h3 {
 
 .magazines-list p {
     margin: 5px 0;
+    font-size: 1.2rem;
+    color: #161313;
 }
 
 /* Botón de eliminar */
 .delete-button {
-    background-color: #dc3545; /* Rojo */
+    background-color: #f03615; /* Rojo */
     color: white;
     padding: 8px 16px;
     border: none;
