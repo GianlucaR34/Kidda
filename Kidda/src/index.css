@@ -1,8 +1,21 @@
 /* BODY */
-body {
-  font-family: Arial, sans-serif;
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #ee771b;
+  display: flex;
+  flex-direction: column;
+  background-image: url('/fondo.png');
 }
-/* BODY */
+
+/* Contenedor principal */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que todo ocupe el 100% de la altura de la pantalla */
+}
+
+/* Contenedor de contenido principal */
+.main-content {
+  flex: 1; /* Empuja el footer hacia abajo */
+}

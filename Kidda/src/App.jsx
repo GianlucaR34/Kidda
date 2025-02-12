@@ -10,14 +10,18 @@ import RevistaIndividual from './Pages/RevistaIndividual';
 const App = () => {
   return (
     <BrowserRouter>
-      <Nav />
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/revistas" element={<Revistas />} />
-        <Route path="/revista-individual/:id" element={<RevistaIndividual />} /> {/* Ruta dinámica */}
-        <Route path="/admin" element={<Panel />} /> 
-      </Routes>
-      <Footer />
+      <div id="root">
+        <Nav />
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/revistas" element={<Revistas />} />
+            <Route path="/revista-individual/:id" element={<RevistaIndividual />} />
+            <Route path="/admin" element={<Panel />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 };

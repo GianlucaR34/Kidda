@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Importamos useParams para acceder al parámetro de la URL
+import { useParams } from 'react-router-dom';
 import MagazineViewer from '../Components/MagazineViewer';
 import '../styles/RevistaIndividual.css';
 
 const RevistaIndividual = () => {
-  const { id } = useParams(); // Obtenemos el id de la URL
+  const { id } = useParams();
   const [magazine, setMagazine] = useState(null);
-  const [password, setPassword] = useState(''); // Estado para la contraseña
-  const [isPasswordCorrect, setIsPasswordCorrect] = useState(false); // Estado para controlar si la contraseña es correcta
+  const [password, setPassword] = useState('');
+  const [isPasswordCorrect, setIsPasswordCorrect] = useState(false);
 
   useEffect(() => {
-    // Fetch the magazine by its ID
     const fetchMagazine = async () => {
-      const response = await fetch(`http://localhost:5000/magazines/${id}`);
-      const data = await response.json();
-      setMagazine(data); // Establece la revista cargada
+      try {
+        const response = await fetch(`http://localhost:5000/magazines/${id}`);
+        const data = await response.json();
+        setMagazine(data);
+      } catch (error) {
+        console.error('Error fetching magazine:', error);
+      }
     };
 
     fetchMagazine();
@@ -22,39 +25,35 @@ const RevistaIndividual = () => {
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    if (password === magazine.password) {
-      setIsPasswordCorrect(true); // Si la contraseña es correcta, permite ver la revista
+    if (magazine && password === magazine.password) {
+      setIsPasswordCorrect(true);
     } else {
-      alert('Contraseña incorrecta.'); // Mensaje de error si la contraseña es incorrecta
+      alert('Contraseña incorrecta.');
     }
   };
 
-  if (!magazine) return <div>Cargando...</div>;
+  if (!magazine) return <div className="loading">Cargando...</div>;
 
   return (
-    <div>
-      <h1>Revista Interactiva: {magazine.title}</h1>
-      
+    <div className={`revista-container ${isPasswordCorrect ? 'blurred' : ''}`}>
       {!isPasswordCorrect ? (
         <div className="password-container">
-          <h2>Ingresa la contraseña para ver la revista</h2>
+          <h2>Ingresa la contraseña</h2>
           <form onSubmit={handlePasswordSubmit}>
             <input
-              className="password-input"
               type="password"
+              className="password-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Contraseña"
             />
-            <button className="password-submit" type="submit">Ver revista</button>
+            <button type="submit" className="password-submit">Ver revista</button>
           </form>
-          {/* Mostrar error si la contraseña es incorrecta */}
-          {password && !isPasswordCorrect && (
-            <div className="password-error">Contraseña incorrecta.</div>
-          )}
         </div>
       ) : (
-        <MagazineViewer pdfUrl={`http://localhost:5000/uploads/${magazine.filename}`} />
+        <div className="pdf-viewer-container">
+          <MagazineViewer pdfUrl={`http://localhost:5000/uploads/${magazine.filename}`} />
+        </div>
       )}
     </div>
   );

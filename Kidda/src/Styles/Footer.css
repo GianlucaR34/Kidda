@@ -1,7 +1,7 @@
 /* FOOTER */
 footer {
-    background-color: #a94900;
-    color: rgb(0, 0, 0);
+    background-color: #3e251e;
+    color: rgb(209, 46, 46);
     text-align: center;
     padding: 1rem 0;
     position: relative; /* Asegura que no se superponga con el contenido */
@@ -10,6 +10,5 @@ footer {
     font-size: 1.5rem;
     margin-top: auto; /* Coloca el footer al final de la página */
   }
-  
   
   /* FOOTER */
