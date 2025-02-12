@@ -44,7 +44,8 @@ const LoginModal = ({ setIsLoggedIn, setToken, closeLoginModal }) => {
   return (
     <div className="login-modal" onClick={closeLoginModal}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2>Login</h2>
+        <button className="close-btn" onClick={closeLoginModal}>×</button>
+        <h2>LOG IN</h2>
         <input
           type="text"
           placeholder="Username"
@@ -63,11 +64,8 @@ const LoginModal = ({ setIsLoggedIn, setToken, closeLoginModal }) => {
             setError(''); // Limpiar error al escribir
           }}
         />
-        <button onClick={handleLogin}>Login</button>
+        <button className="login-btn" onClick={handleLogin}>Log In</button>
         {error && <p className="error">{error}</p>}
-        <button className="close-btn" onClick={closeLoginModal}>
-          Cerrar
-        </button>
       </div>
     </div>
   );

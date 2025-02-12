@@ -88,11 +88,11 @@ function Nav() {
         )}
         {!isLoggedIn ? (
           <li>
-            <button onClick={handleLoginClick}>LOGIN</button>
+            <span onClick={handleLoginClick} className="login-link">LOGIN</span>
           </li>
         ) : (
           <li>
-            <button onClick={handleLogout}>LOGOUT</button>
+            <span onClick={handleLogout} className="login-link">LOGOUT</span>
           </li>
         )}
       </ul>
