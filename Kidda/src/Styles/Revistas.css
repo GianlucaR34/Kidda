@@ -14,7 +14,7 @@
 }
 
 .revista-card {
-  background: #000000;
+  background-image: linear-gradient(to bottom, #000000, #3e251e);
   /*border: 1px solid #000000; crea un borde como sketch*/
   border-radius: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -41,13 +41,14 @@
 .revista-info h3 {
   font-size: 18px;
   margin: 0;
-  color: #ff6a00;
+  color: #e55d35;
   font-family: "Caveat Brush", sans-serif;
+  font-weight: 100;
 }
 
 .revista-info p {
   font-size: 14px;
-  color: #666;
+  color: #9e9397;
   margin-top: 5px;
 }
 

@@ -76,8 +76,8 @@ h2, h3 {
 
 /* Botón de subir */
 .upload-section button {
-    background-color: #54a119; /* Verde */
-    color: white;
+    background-color: #e55e2f; /* Verde */
+    color: rgb(0, 0, 0);
     padding: 10px 20px;
     border: none;
     border-radius: 5px;

@@ -6,6 +6,7 @@ import MainPage from './Pages/MainPage';
 import Revistas from './Pages/Revistas';
 import Panel from './Pages/Panel';
 import RevistaIndividual from './Pages/RevistaIndividual';
+import NotFound from './Components/NotFound'; // Importa la página de error 404
 
 const App = () => {
   return (
@@ -18,6 +19,8 @@ const App = () => {
             <Route path="/revistas" element={<Revistas />} />
             <Route path="/revista-individual/:id" element={<RevistaIndividual />} />
             <Route path="/admin" element={<Panel />} />
+            {/* Ruta para manejar las páginas no encontradas */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer />

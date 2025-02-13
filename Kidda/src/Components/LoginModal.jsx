@@ -19,6 +19,7 @@ const LoginModal = ({ setIsLoggedIn, setToken, closeLoginModal }) => {
     };
   }, [closeLoginModal]);
 
+  // Función para manejar el login
   const handleLogin = async () => {
     try {
       const response = await fetch('http://localhost:5000/auth/login', {
@@ -41,6 +42,13 @@ const LoginModal = ({ setIsLoggedIn, setToken, closeLoginModal }) => {
     }
   };
 
+  // Función que se llama al presionar Enter
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleLogin(); // Ejecuta el login al presionar Enter
+    }
+  };
+
   return (
     <div className="login-modal" onClick={closeLoginModal}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -54,6 +62,7 @@ const LoginModal = ({ setIsLoggedIn, setToken, closeLoginModal }) => {
             setUsername(e.target.value);
             setError(''); // Limpiar error al escribir
           }}
+          onKeyDown={handleKeyPress} // Detecta Enter al escribir
         />
         <input
           type="password"
@@ -63,6 +72,7 @@ const LoginModal = ({ setIsLoggedIn, setToken, closeLoginModal }) => {
             setPassword(e.target.value);
             setError(''); // Limpiar error al escribir
           }}
+          onKeyDown={handleKeyPress} // Detecta Enter al escribir
         />
         <button className="login-btn" onClick={handleLogin}>Log In</button>
         {error && <p className="error">{error}</p>}

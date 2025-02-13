@@ -62,8 +62,8 @@
 
 /* Estilo para el error */
 .error {
-  color: red;
-  font-size: 14px;
+  color: rgb(34, 31, 31);
+  font-size: 20px;
   text-align: center;
   margin-top: 10px;
 }
