@@ -1,0 +1,88 @@
+/* Estilo base para el contenedor de la revista */
+.magazine-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Para pantallas pequeñas (móviles) */
+
+
+@media (max-width: 344px) {  /* Cambio aquí a max-width */
+    .magazine-container {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .flipbook-container {
+        width: 100% !important;
+        height: auto;
+    }
+
+    .react-pdf__Page__canvas {
+        margin-top: 95px;
+        width: 63% !important;
+        height: auto !important;
+        margin-left: 110px;
+    }
+}
+
+@media (max-width: 375px) {  /* Cambio aquí a max-width */
+    .magazine-container {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .flipbook-container {
+        width: 100% !important;
+        height: auto;
+    }
+
+    .react-pdf__Page__canvas {
+        margin-top: 95px;
+        width: 63% !important;
+        height: auto !important;
+        margin-left: 110px;
+    }
+}
+
+@media (min-width: 389px) and (max-width: 390px) {  /* Cambio aquí a max-width */
+    .magazine-container {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .flipbook-container {
+        width: 100% !important;
+        height: auto;
+    }
+
+    .react-pdf__Page__canvas {
+        margin-top: 80px;
+        width: 63% !important;
+        height: auto !important;
+        margin-left: 120px;
+    }
+}
+
+@media (min-width: 412px) and (max-width: 430px) {  /* Cambio aquí a max-width */
+    .magazine-container {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .flipbook-container {
+        width: 100% !important;
+        height: auto;
+    }
+
+    .react-pdf__Page__canvas {
+        margin-top: 80px;
+        width: 63% !important;
+        height: auto !important;
+        margin-left: 122px;
+    }
+}

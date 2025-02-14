@@ -4,6 +4,7 @@ import HTMLFlipBook from "react-pageflip";
 import { isMobile } from "react-device-detect";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import '../styles/MagazineViewer.css';
 
 // Configurar la ruta del worker de PDF.js
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
@@ -30,20 +31,11 @@ const MagazineViewer = ({ pdfA3Url, pdfA4Url }) => {
 
   console.log("URL del PDF mostrado:", pdfUrl);
 
-
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#222",
-        padding: "20px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-      }}
-    >
+    <div className="magazine-container">
       <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
         <HTMLFlipBook
+          className="flipbook-container"
           width={isMobile ? 595 : 1190} // A4 en móviles, A3 en escritorio
           height={842}
           showCover={true}
