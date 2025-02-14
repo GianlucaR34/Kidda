@@ -57,6 +57,7 @@ const RevistaIndividual = () => {
             <MagazineViewer 
               pdfA3Url={`http://localhost:5000/uploads/${magazine.pdfA3}`} 
               pdfA4Url={`http://localhost:5000/uploads/${magazine.pdfA4}`} 
+              isMobile={isMobile} // 🔹 Pasamos isMobile como prop
             />
           ) : (
             <p>Error: No se encontraron archivos PDF.</p>

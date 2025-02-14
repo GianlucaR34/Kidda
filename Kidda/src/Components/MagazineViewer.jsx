@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import HTMLFlipBook from "react-pageflip";
-import { isMobile } from "react-device-detect"; // Importar para detectar dispositivo móvil
+import { isMobile } from "react-device-detect";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 
-
 // Configurar la ruta del worker de PDF.js
-pdfjs.GlobalWorkerOptions.workerSrc = "/node_modules/pdfjs-dist/build/pdf.worker.min.mjs";
+pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 
 const MagazineViewer = ({ pdfA3Url, pdfA4Url }) => {
   const [numPages, setNumPages] = useState(null);
@@ -17,16 +16,20 @@ const MagazineViewer = ({ pdfA3Url, pdfA4Url }) => {
   };
 
   const getDimensions = (pageIndex, numPages) => {
-    if (pageIndex === 0 || pageIndex === numPages - 1) {
-      return { width: 595, height: 842 }; // A4
+    if (pageIndex === 0 || pageIndex === numPages - 1 || isMobile) {
+      return { width: 595, height: 842 }; // A4 en portada/contraportada y en móviles
     }
-    return { width: 1190, height: 842 }; // A3 apaisado
+    return { width: 1190, height: 842 }; // A3 apaisado en escritorio
   };
 
-  const isSinglePage = (pageIndex, numPages) => pageIndex === 0 || pageIndex === numPages - 1;
+  const isSinglePage = (pageIndex, numPages) =>
+    pageIndex === 0 || pageIndex === numPages - 1 || isMobile;
 
   // Determinar la URL del PDF según el dispositivo
   const pdfUrl = isMobile ? pdfA4Url : pdfA3Url;
+
+  console.log("URL del PDF mostrado:", pdfUrl);
+
 
   return (
     <div
@@ -36,13 +39,13 @@ const MagazineViewer = ({ pdfA3Url, pdfA4Url }) => {
         alignItems: "center",
         backgroundColor: "#222",
         padding: "20px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Sombra externa
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
       <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
         <HTMLFlipBook
-          width={1190} // A3 máximo
-          height={842} // Altura fija
+          width={isMobile ? 595 : 1190} // A4 en móviles, A3 en escritorio
+          height={842}
           showCover={true}
           style={{
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
@@ -56,14 +59,14 @@ const MagazineViewer = ({ pdfA3Url, pdfA4Url }) => {
               <div
                 key={index}
                 style={{
-                  width: singlePage ? 595 : 1190, // A4 para portada/contraportada, A3 para el resto
-                  height: 842, // Altura fija
+                  width: width,
+                  height: height,
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   backgroundColor: "#fff",
                   overflow: "hidden",
-                  margin: "0 auto", // Centrar el contenedor si es portada/contraportada
+                  margin: "0 auto",
                   position: "relative",
                 }}
               >
@@ -71,8 +74,8 @@ const MagazineViewer = ({ pdfA3Url, pdfA4Url }) => {
                   pageNumber={index + 1}
                   width={width}
                   style={{
-                    position: "absolute", // Asegura que el contenido esté alineado
-                    left: singlePage ? "50%" : "0", // Centrar si es portada/contraportada
+                    position: "absolute",
+                    left: singlePage ? "50%" : "0",
                     transform: singlePage ? "translateX(-50%)" : "none",
                   }}
                 />
