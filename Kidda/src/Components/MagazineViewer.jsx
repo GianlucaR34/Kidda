@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import HTMLFlipBook from "react-pageflip";
+import { isMobile } from "react-device-detect"; // Importar para detectar dispositivo móvil
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 
 // Configurar la ruta del worker de PDF.js
 pdfjs.GlobalWorkerOptions.workerSrc = "/node_modules/pdfjs-dist/build/pdf.worker.min.mjs";
 
-const MagazineViewer = ({ pdfUrl }) => {
+const MagazineViewer = ({ pdfA3Url, pdfA4Url }) => {
   const [numPages, setNumPages] = useState(null);
 
   const onDocumentLoadSuccess = ({ numPages }) => {
@@ -23,13 +24,16 @@ const MagazineViewer = ({ pdfUrl }) => {
 
   const isSinglePage = (pageIndex, numPages) => pageIndex === 0 || pageIndex === numPages - 1;
 
+  // Determinar la URL del PDF según el dispositivo
+  const pdfUrl = isMobile ? pdfA4Url : pdfA3Url;
+
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-      backgroundColor: "#222",
+        backgroundColor: "#222",
         padding: "20px",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Sombra externa
       }}

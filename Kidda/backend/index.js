@@ -9,9 +9,6 @@ import { fileURLToPath } from 'url';
 import authRouter from './models/auth.js'; // Importamos el router de autenticación
 import User from './models/User.js';  // Asegúrate de que la ruta sea correcta
 
-
-
-
 const app = express();
 const port = 5000;
 
@@ -25,10 +22,16 @@ app.use(express.json());
 // Middleware para servir archivos estáticos desde la carpeta 'uploads'
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Crear la carpeta 'uploads' si no existe
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
 // Configurar Multer para manejar la subida de archivos
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // La carpeta donde se guardarán los archivos subidos
+    cb(null, uploadDir); // La carpeta donde se guardarán los archivos subidos
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + '-' + file.originalname); // Nombrar el archivo con un prefijo de timestamp
@@ -51,23 +54,28 @@ app.get('/', (req, res) => {
   res.send('Servidor funcionando correctamente');
 });
 
-// Rutas para subir archivos y manejar revistas
-app.post('/upload', upload.fields([{ name: 'file' }, { name: 'cover' }]), async (req, res) => {
+// Ruta para subir archivos y manejar revistas
+app.post('/upload', upload.fields([
+  { name: 'pdfA3' },  // PDF en formato A3
+  { name: 'pdfA4' },  // PDF en formato A4
+  { name: 'cover' }   // Portada
+]), async (req, res) => {
   const files = req.files;
   const { title, password } = req.body;
 
-  console.log('Archivos recibidos:', files);  // Verifica si "cover" y "file" están presentes
+  console.log('Archivos recibidos:', files);  // Verifica si "pdfA3", "pdfA4" y "cover" están presentes
 
-  if (!files || !files.file || !files.cover) {
-    return res.status(400).send('Se requieren tanto el archivo PDF como la portada.');
+  if (!files || !files.pdfA3 || !files.pdfA4 || !files.cover) {
+    return res.status(400).send('Se requieren los archivos PDF en A3 y A4, además de la portada.');
   }
 
   try {
     // Crear una nueva revista en la base de datos
     const magazine = new Magazine({
       title,
-      filename: files.file[0].filename, // PDF subido
-      cover: files.cover[0].filename,   // Portada subida
+      pdfA3: files.pdfA3[0].filename, // Guardar PDF en A3
+      pdfA4: files.pdfA4[0].filename, // Guardar PDF en A4
+      cover: files.cover[0].filename, // Guardar portada
       password,
     });
 
@@ -84,36 +92,60 @@ app.post('/upload', upload.fields([{ name: 'file' }, { name: 'cover' }]), async 
 });
 
 // Ruta para eliminar un archivo de revistas
-app.delete('/magazines/:filename', async (req, res) => {
-  const { filename } = req.params;
-  const pdfPath = `uploads/${filename}`;
+app.delete('/magazines/:id', async (req, res) => {
+  const { id } = req.params;
 
   try {
     // Buscar la revista en la base de datos
-    const magazine = await Magazine.findOne({ filename });
+    const magazine = await Magazine.findById(id);
 
     if (!magazine) {
       return res.status(404).send('Revista no encontrada en la base de datos');
     }
 
-    // Eliminar la entrada de la base de datos
-    await Magazine.deleteOne({ filename });
+    // Mostrar los nombres de los archivos que vamos a eliminar (para depuración)
+    console.log("Archivos a eliminar:");
+    console.log("PDF A3:", magazine.pdfA3);
+    console.log("PDF A4:", magazine.pdfA4);
+    console.log("Portada:", magazine.cover);
 
-    // Eliminar el archivo PDF
-    if (fs.existsSync(pdfPath)) {
-      fs.unlinkSync(pdfPath);
+    // Rutas de los archivos, usando los nombres almacenados en la base de datos
+    const pdfA3Path = path.join(uploadDir, magazine.pdfA3); // Usar el nombre del archivo almacenado
+    const pdfA4Path = path.join(uploadDir, magazine.pdfA4); // Usar el nombre del archivo almacenado
+    const coverPath = path.join(uploadDir, magazine.cover); // Usar el nombre del archivo almacenado
+
+    // Mostrar las rutas completas de los archivos (para depuración)
+    console.log("Ruta completa A3:", pdfA3Path);
+    console.log("Ruta completa A4:", pdfA4Path);
+    console.log("Ruta completa Portada:", coverPath);
+
+    // Eliminar la entrada de la base de datos
+    await Magazine.deleteOne({ _id: id });
+
+    // Eliminar los archivos físicos (si existen)
+    if (fs.existsSync(pdfA3Path)) {
+      fs.unlinkSync(pdfA3Path);
+      console.log("Archivo A3 eliminado");
+    } else {
+      console.log("No se encontró el archivo A3");
     }
 
-    // Eliminar la portada asociada
-    if (magazine.cover) {
-      const coverPath = `uploads/${magazine.cover}`;
-      if (fs.existsSync(coverPath)) {
-        fs.unlinkSync(coverPath);
-      }
+    if (fs.existsSync(pdfA4Path)) {
+      fs.unlinkSync(pdfA4Path);
+      console.log("Archivo A4 eliminado");
+    } else {
+      console.log("No se encontró el archivo A4");
+    }
+
+    if (fs.existsSync(coverPath)) {
+      fs.unlinkSync(coverPath);
+      console.log("Portada eliminada");
+    } else {
+      console.log("No se encontró la portada");
     }
 
     // Responder con éxito
-    res.status(200).send({ message: 'Revista, portada y archivo PDF eliminados exitosamente' });
+    res.status(200).send({ message: 'Revista, portada y archivos eliminados exitosamente' });
   } catch (error) {
     console.error('Error al eliminar la revista:', error);
     res.status(500).send('Error al eliminar la revista');
