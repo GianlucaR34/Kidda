@@ -5,6 +5,7 @@ import { isMobile } from "react-device-detect"; // Importar para detectar dispos
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 
+
 // Configurar la ruta del worker de PDF.js
 pdfjs.GlobalWorkerOptions.workerSrc = "/node_modules/pdfjs-dist/build/pdf.worker.min.mjs";
 

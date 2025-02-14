@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MagazineViewer from "../Components/MagazineViewer";
-import { isMobile } from "react-device-detect"; // Usar react-device-detect para saber si es un móvil
+import { isMobile } from "react-device-detect"; // Detectar si es un móvil
 import "../styles/RevistaIndividual.css";
 
 const RevistaIndividual = () => {
@@ -53,10 +53,14 @@ const RevistaIndividual = () => {
         </div>
       ) : (
         <div className="pdf-viewer-container">
-          {/* Dependiendo si es móvil o no, cargar el PDF correspondiente */}
-          <MagazineViewer 
-            pdfUrl={isMobile ? `http://localhost:5000/uploads/${magazine.pdfA4}` : `http://localhost:5000/uploads/${magazine.pdfA3}`} 
-          />
+          {magazine.pdfA3 && magazine.pdfA4 ? (
+            <MagazineViewer 
+              pdfA3Url={`http://localhost:5000/uploads/${magazine.pdfA3}`} 
+              pdfA4Url={`http://localhost:5000/uploads/${magazine.pdfA4}`} 
+            />
+          ) : (
+            <p>Error: No se encontraron archivos PDF.</p>
+          )}
         </div>
       )}
     </div>

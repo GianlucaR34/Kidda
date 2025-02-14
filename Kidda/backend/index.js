@@ -83,8 +83,16 @@ app.post('/upload', upload.fields([
 
     res.status(200).send({
       message: 'Revista subida exitosamente',
-      magazine,
+      magazine: {
+        _id: magazine._id,
+        title: magazine.title,
+        pdfA3: `/uploads/${magazine.pdfA3}`,  // Agregamos la ruta completa
+        pdfA4: `/uploads/${magazine.pdfA4}`,
+        cover: `/uploads/${magazine.cover}`,
+        password: magazine.password,
+      },
     });
+    
   } catch (error) {
     console.error('Error al guardar la revista:', error);
     res.status(500).send('Error al guardar la revista');
