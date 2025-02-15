@@ -6,40 +6,32 @@ import { jwtDecode } from 'jwt-decode';
 
 function Nav() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState(localStorage.getItem('token')); // Obtener token de localStorage
+  const [token, setToken] = useState(localStorage.getItem('token')); 
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // Estado del menú
 
   useEffect(() => {
-    console.log('Token from localStorage:', token);
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        console.log('Decoded Token:', decoded);
-
-        // Verificar si el token ha expirado
         const currentTime = Math.floor(Date.now() / 1000);
         if (decoded.exp < currentTime) {
-          console.log("El token ha expirado, cerrando sesión...");
           handleLogout();
           return;
         }
-
         if (decoded.role === 'admin') {
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
         }
       } catch (error) {
-        console.error("Error al decodificar el token:", error);
         handleLogout();
       }
     } else {
-      console.log('No token found in localStorage');
       setIsLoggedIn(false);
     }
   }, [token]);
 
-  // Detectar cambios en localStorage (por si se cambia en otra pestaña)
   useEffect(() => {
     const handleStorageChange = () => {
       setToken(localStorage.getItem('token'));
@@ -53,6 +45,7 @@ function Nav() {
 
   const handleLoginClick = () => {
     setShowLoginModal(true);
+    setMenuOpen(false); // Cierra el menú al abrir el login
   };
 
   const closeLoginModal = () => {
@@ -63,8 +56,16 @@ function Nav() {
     localStorage.removeItem('token');
     setToken(null);
     setIsLoggedIn(false);
-    setShowLoginModal(false); // ✅ Asegurar que el modal se cierra al hacer logout
-    console.log("Sesión cerrada correctamente");
+    setShowLoginModal(false);
+    setMenuOpen(false); // Cierra el menú al hacer logout
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
   return (
@@ -74,16 +75,22 @@ function Nav() {
           <img src="/KiddaLogo.png" alt="Kidda Logo" />
         </a>
       </div>
-      <ul className="navbar-links">
+
+      {/* Ícono del menú hamburguesa */}
+      <div className="menu-toggle" onClick={toggleMenu}>
+        ☰
+      </div>
+
+      <ul className={`navbar-links ${menuOpen ? 'open' : ''}`}>
         <li>
-          <Link to="/">INICIO</Link>
+          <Link to="/" onClick={closeMenu}>INICIO</Link>
         </li>
         <li>
-          <Link to="/revistas">REVISTAS</Link>
+          <Link to="/revistas" onClick={closeMenu}>REVISTAS</Link>
         </li>
         {isLoggedIn && (
           <li>
-            <Link to="/admin">PANEL</Link>
+            <Link to="/admin" onClick={closeMenu}>PANEL</Link>
           </li>
         )}
         {!isLoggedIn ? (

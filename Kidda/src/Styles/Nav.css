@@ -7,6 +7,7 @@
   color: white;
   padding: 1rem;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Sombra suave */
+  z-index: 10;
 }
  
 .navbar-logo img {
@@ -67,4 +68,61 @@
 .Nav ul li a:hover,
 .Nav ul li .login-link:hover { /* Añadido para el login */
   color: #ff7f1d;
+}
+
+/* Estilos base */
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #c3340c;
+}
+
+/* Menú responsive */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  }
+  
+  .navbar-links.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+
+  .navbar-links li {
+    padding: 15px;
+    text-align: center;
+  }
+}
+
+/*MEDIA QUERYS*/
+/*S1*/
+
+@media (max-width: 375px){
+  .Nav {
+    width: 91.5%;
+  }
+}
+
+@media (min-width: 412px) and(max-width: 767px) {
+  .Nav {
+    width: 76%;
+  }
 }

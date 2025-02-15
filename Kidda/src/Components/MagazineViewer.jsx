@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import HTMLFlipBook from "react-pageflip";
-import { isMobile } from "react-device-detect";
+import useIsMobile from "../hooks/useIsMobile"; // Importa el hook
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import '../styles/MagazineViewer.css';
@@ -11,6 +11,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 
 const MagazineViewer = ({ pdfA3Url, pdfA4Url }) => {
   const [numPages, setNumPages] = useState(null);
+  const isMobile = useIsMobile(); // Usa el hook para detectar si es móvil
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);

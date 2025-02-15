@@ -8,81 +8,155 @@
     margin: 0 auto;
 }
 
-/* Para pantallas pequeñas (móviles) */
-
-
-@media (max-width: 344px) {  /* Cambio aquí a max-width */
+@media (max-width: 344px) {
     .magazine-container {
-        padding: 10px;
-        max-width: 100%;
-    }
-
-    .flipbook-container {
-        width: 100% !important;
-        height: auto;
-    }
-
+        margin-top: -5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 63%;
+        height: 59vh; /* Para que ocupe toda la altura */
+        overflow: hidden;
+        background-color: #2b2b2b; /* Para ver mejor los bordes */
+      }
     .react-pdf__Page__canvas {
-        margin-top: 95px;
+        margin-top: 150px;
         width: 63% !important;
         height: auto !important;
         margin-left: 110px;
     }
 }
 
-@media (max-width: 375px) {  /* Cambio aquí a max-width */
+@media (min-width: 360px) and (max-width: 375px) {
     .magazine-container {
-        padding: 10px;
-        max-width: 100%;
-    }
-
-    .flipbook-container {
-        width: 100% !important;
-        height: auto;
-    }
-
+        margin-top: -5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 63%;
+        height: 81vh; /* Para que ocupe toda la altura */
+        overflow: hidden;
+        background-color: #2b2b2b; /* Para ver mejor los bordes */
+        
+      }
     .react-pdf__Page__canvas {
-        margin-top: 95px;
+        margin-top: 150px;
         width: 63% !important;
         height: auto !important;
         margin-left: 110px;
     }
 }
 
-@media (min-width: 389px) and (max-width: 390px) {  /* Cambio aquí a max-width */
+@media (min-width: 390px) and (max-width: 390px) {
     .magazine-container {
-        padding: 10px;
-        max-width: 100%;
-    }
-
-    .flipbook-container {
-        width: 100% !important;
-        height: auto;
-    }
-
+        margin-top: -5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 63%;
+        height: 64vh; /* Para que ocupe toda la altura */
+        overflow: hidden;
+        background-color: #2b2b2b; /* Para ver mejor los bordes */
+        
+      }
     .react-pdf__Page__canvas {
-        margin-top: 80px;
+        margin-top: 150px;
         width: 63% !important;
         height: auto !important;
-        margin-left: 120px;
+        margin-left: 110px;
     }
 }
 
-@media (min-width: 412px) and (max-width: 430px) {  /* Cambio aquí a max-width */
+@media (min-width: 412px) and (max-width: 430px) {
     .magazine-container {
-        padding: 10px;
-        max-width: 100%;
-    }
-
-    .flipbook-container {
-        width: 100% !important;
-        height: auto;
-    }
-
+        margin-top: -5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 63%;
+        height: 60vh; /* Para que ocupe toda la altura */
+        overflow: hidden;
+        background-color: #2b2b2b; /* Para ver mejor los bordes */
+        
+      }
     .react-pdf__Page__canvas {
-        margin-top: 80px;
+        margin-top: 150px;
         width: 63% !important;
         height: auto !important;
-        margin-left: 122px;
+        margin-left: 110px;
     }
 }
+
+@media (min-width: 540px) and (max-width: 540px) {
+    .magazine-container {
+        margin-top: -5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 63%;
+        height: 74vh; /* Para que ocupe toda la altura */
+        overflow: hidden;
+        background-color: #2b2b2b; /* Para ver mejor los bordes */
+        
+      }
+    .react-pdf__Page__canvas {
+        margin-top: 156px;
+        width: 63% !important;
+        height: auto !important;
+        margin-left: 110px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 768px) {
+    .magazine-container {
+        margin-top: -5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70%;
+        height: 61vh; /* Para que ocupe toda la altura */
+        overflow: hidden;
+        background-color: #2b2b2b; /* Para ver mejor los bordes */
+        
+      }
+    .react-pdf__Page__canvas {
+        margin-top: 132px;
+        width: 69% !important;
+        height: auto !important;
+        margin-left: 92px;
+    }
+}
+
+@media (min-width: 820px) and (max-width: 820px) {
+   .magazine-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+}
+
+@media screen and (max-width: 1024px) and (max-height: 600px){
+    .magazine-container {
+        margin-top: -2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70%;
+        height: 100vh; /* Para que ocupe toda la altura */
+        overflow: hidden;
+        background-color: #2b2b2b; /* Para ver mejor los bordes */
+        
+      }
+    .react-pdf__Page__canvas {
+        margin-top: 140px;
+        width: 69% !important;
+        height: auto !important;
+        margin-left: 92px;
+    }
+}
+
