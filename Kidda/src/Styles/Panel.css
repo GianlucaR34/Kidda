@@ -131,3 +131,46 @@ h2, h3 {
 .delete-button:hover {
     background-color: #c82333;
 }
+
+
+@media (max-width: 767px) {
+    .admin-container {
+        width: 70%;
+    }
+    .upload-section button {
+        width: 50%;
+
+    }
+    
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .admin-container {
+        width: 70%;
+    }
+    .upload-section button {
+        width: 30%;
+
+    }
+    
+  }
+  @media (min-width: 1024px) and (max-width: 1024px) {
+    .admin-container {
+        width: 70%;
+    }
+    .upload-section button {
+        width: 15%;
+
+    }
+    
+  }
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    .admin-container {
+        width: 70%;
+    }
+    .upload-section button {
+        width: 10%;
+
+    }
+    
+  }
