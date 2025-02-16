@@ -6,8 +6,8 @@ footer {
     padding: 1rem 0;
     position: relative; /* Asegura que no se superponga con el contenido */
     width: 100%;
-    font-family: "Caveat Brush", sans-serif;
-    font-size: 1.5rem;
+    font-family: "Fugaz One", serif;
+    font-size: 1rem;
     margin-top: auto; /* Coloca el footer al final de la página */
   }
   

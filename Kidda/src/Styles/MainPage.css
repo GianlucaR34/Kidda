@@ -1,4 +1,94 @@
-p {
-    font-family: "Caveat Brush", sans-serif;
-    font-size: 1.5rem;
+/* Contenedor principal */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+
+.container div {
+  font-family: "Fugaz One", serif;
+  color: #e55d35;
+}
+
+/* Contenedor de la forma personalizada */
+.custom-shape {
+  width: 1800px;
+  height: 520px;
+  background-image: url('./sdds.png');
+  background-size: cover;
+  background-position: center;
+  clip-path: polygon(
+    0 0, 
+    65% 0, 
+    65% 50%, 
+    100% 50%, 
+    100% 100%, 
+    0 100%
+  );
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+/* Estilos para el texto "Expediente" */
+.text-expediente {
+  position: absolute;
+  top: 6%;
+  left: 34%;
+  transform: translateX(-50%);
+  font-size: 8rem;
+  color: black;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+/* Estilos para el texto "Kidda" */
+.text-kidda {
+  position: absolute;
+  top: 33.5%;
+  right: 9%;
+  font-size: 8rem;
+  color: black;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+/* Nueva forma circular con enlace */
+.circle-link {
+  text-decoration: none; /* Elimina el subrayado del enlace */
+  position: absolute;
+  top: 66%;
+  right: 88%;
+  z-index: 3;
+  display: flex;
+}
+
+/* Círculo */
+.circle-shape {
+  width: 140px;
+  height: 140px;
+  background-image: linear-gradient(to top, #e55d35, #d82c18);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Efecto hover */
+.circle-shape:hover {
+  transform: scale(1.1); /* Agranda el círculo al pasar el mouse */
+}
+
+/* Texto dentro del círculo */
+.circle-text {
+  font-size: 1.1rem;
+  font-family: "Cabin Sketch", serif;
+  text-transform: uppercase;
+  text-align: center;
+  color: #000000;
+  transform: rotate(30deg); /* Inclina el texto 30 grados */
 }

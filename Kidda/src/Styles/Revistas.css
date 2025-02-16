@@ -3,6 +3,7 @@
   max-width: 1500px;
   margin: 0 auto; /* Centrado del contenedor */
   text-align: center;
+  font-family: "Fugaz One", serif;
 }
 
 .revistas-grid {
@@ -39,21 +40,23 @@
 }
 
 .revista-info h3 {
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
   color: #e55d35;
-  font-family: "Caveat Brush", sans-serif;
+  font-family: "Fugaz One", serif;
   font-weight: 100;
+
 }
 
 .revista-info p {
-  font-size: 14px;
+  font-size: 12px;
   color: #9e9397;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 h1 {
-  color: #000000;
+  color: #1a1a1a;
+  
 }
 
 

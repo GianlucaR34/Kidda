@@ -1,6 +1,5 @@
 /* General */
 body {
-    font-family: Arial, sans-serif;
     background-color: #1a1a1a; /* Fondo oscuro */
     color: white;
     margin: 0;
@@ -21,9 +20,18 @@ body {
 }
 
 /* Títulos */
-h2, h3 {
+h2 {
     color: #e55d35;
     text-align: center;
+    font-family: "Fugaz One", serif;
+}
+h3 {
+     
+        color: #e55d35;
+        text-align: center;
+        font-family: "Cabin Sketch", serif;
+        font-weight: 400;
+    
 }
 
 /* Formulario para subir nueva revista */
@@ -46,6 +54,9 @@ h2, h3 {
     background-color: #161313;
     color: rgb(255, 255, 255);
     box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el width */
+    font-family: "Cabin Sketch", serif;
+    font-weight: 400;
+    font-size: 1rem;
 }
 
 /* Agregar estilo a los contenedores de los inputs de archivo */
@@ -61,6 +72,9 @@ h2, h3 {
   margin-bottom: 5px;
   font-weight: bold;
   color: #dddddd; /* Puedes cambiar el color para hacerlo destacar */
+  font-family: "Cabin Sketch", serif;
+  font-weight: 400;
+  font-size: 1.1rem;
 }
 
 .file-input-container input[type="file"] {
@@ -74,6 +88,7 @@ h2, h3 {
   box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el width */
 }
 
+
 /* Botón de subir */
 .upload-section button {
     background-color: #e55e2f; /* Verde */
@@ -82,10 +97,12 @@ h2, h3 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
     transition: background-color 0.3s ease;
     width: 10%; /* Asegura que el botón tenga el mismo ancho que los inputs */
     margin-top: 15px; /* Espacio superior entre el botón y los inputs */
+    font-family: "Cabin Sketch", serif;
+    font-weight: 400;
 }
 
 .upload-section button:hover {
@@ -114,6 +131,7 @@ h2, h3 {
     margin: 5px 0;
     font-size: 1.2rem;
     color: #161313;
+    font-family: "Cabin Sketch", serif;
 }
 
 /* Botón de eliminar */

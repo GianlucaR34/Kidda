@@ -25,7 +25,7 @@ function SeccionRevistas() {
 
   return (
     <div className="revistas-container">
-      <h1>The Gallery</h1>
+      <h1>THE GALLERY</h1>
       <div className="revistas-grid">
         {Array.isArray(magazines) && magazines.length > 0 ? (
           magazines.map((magazine) => {

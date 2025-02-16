@@ -25,7 +25,7 @@
 
 /* Estilo para el título */
 .modal-content h2 {
-  font-family: 'Caveat Brush', sans-serif;
+  font-family: "Fugaz One", serif;
   text-align: center;
   margin-bottom: 20px;
   color: #333;
@@ -39,6 +39,7 @@
   border: 1px solid #c7c7c7;
   border-radius: 20px;
   font-size: 16px;
+  font-family: "Fugaz One", serif;
 }
 
 /* Estilos para el botón de login */
@@ -48,11 +49,11 @@
   border: none;
   background-color: #e55d35;
   color: rgb(255, 255, 255);
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  font-family: 'Caveat Brush', sans-serif;
+  font-family: "Fugaz One", serif;
   border-radius: 20px;
 }
 
