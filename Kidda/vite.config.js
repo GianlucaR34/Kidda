@@ -5,13 +5,6 @@ import { viteStaticCopy } from "vite-plugin-static-copy"; // Importa el plugin d
 export default defineConfig({
   plugins: [
     react(), // Agrega el plugin de React
-    viteStaticCopy({
-      targets: [
-        {
-          src: "node_modules/pdfjs-dist/build/pdf.worker.min.js", // Ruta del archivo en node_modules
-          dest: "" // Destino en la carpeta dist
-        }
-      ]
-    })
+    // Eliminar el bloque de copia estática relacionado con el worker JS
   ]
 });
