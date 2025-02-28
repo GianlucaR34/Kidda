@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import '../Styles/nav.css';
+import '../Styles/Nav.css';
 import LoginModal from './LoginModal';
 import { jwtDecode } from 'jwt-decode';
 
