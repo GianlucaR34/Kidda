@@ -4,7 +4,7 @@ import HTMLFlipBook from "react-pageflip";
 import useIsMobile from "../hooks/useIsMobile"; // Importa el hook
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import '../styles/MagazineViewer.css';
+import '../Styles/MagazineViewer.css';
 
 // Configurar la ruta del worker de PDF.js
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";

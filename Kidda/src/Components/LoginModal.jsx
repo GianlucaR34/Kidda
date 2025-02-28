@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/LoginModal.css';
+import '../Styles/LoginModal.css';
 
 const LoginModal = ({ setIsLoggedIn, setToken, closeLoginModal }) => {
   const [username, setUsername] = useState('');

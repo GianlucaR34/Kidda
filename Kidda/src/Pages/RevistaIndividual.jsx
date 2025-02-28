@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MagazineViewer from "../Components/MagazineViewer";
 import { isMobile } from "react-device-detect"; // Detectar si es un móvil
-import "../styles/RevistaIndividual.css";
+import "../Styles/RevistaIndividual.css";
 
 const RevistaIndividual = () => {
   const { id } = useParams();

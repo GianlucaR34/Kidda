@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Panel.css";
+import "../Styles/Panel.css";
 
 const AdminPanel = () => {
   const [file, setFile] = useState(null);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importamos useNavigate
-import '../styles/Revistas.css';
+import '../Styles/Revistas.css';
 
 function SeccionRevistas() {
   const [magazines, setMagazines] = useState([]);
