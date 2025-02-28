@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/MainPage.css'; // Asegúrate de tener el archivo CSS correcto
+import '../Styles/MainPage.css'; // Asegúrate de tener el archivo CSS correcto
 
 function PaginaPrincipal() {
   return (
