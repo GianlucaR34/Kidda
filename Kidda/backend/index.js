@@ -7,7 +7,11 @@ import Magazine from './models/Magazine.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import authRouter from './models/auth.js'; // Importamos el router de autenticación
+import dotenv from 'dotenv';
 import User from './models/User.js';  // Asegúrate de que la ruta sea correcta
+
+
+dotenv.config();
 
 const app = express();
 const port = 5000;
@@ -41,7 +45,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Conexión a MongoDB (sin las opciones obsoletas)
-mongoose.connect('mongodb://localhost:27017/revistas')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('Conectado a MongoDB');
   })
